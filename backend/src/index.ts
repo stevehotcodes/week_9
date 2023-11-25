@@ -1,25 +1,26 @@
-import  Express, { Request, Response, Router, json }  from "express";
+import Express, { Request, Response, Router, json } from "express";
 import { dbConfig } from "./config/dbConfig";
 
-import sql from "mssql"
+import sql from "mssql";
 
-
-import cors from 'cors'
+import cors from "cors";
+import user_router from "./routes/userRoutes";
 
 const app = Express();
-app.use(cors())
-app.use(json())
+app.use(cors());
+app.use(json());
 
-const port =3000
+const port = 3000;
 
+// app.get('/',()=>{
+//     console.log("perez changes")
+// })
 
+app.use("/user", user_router);
 
-
-app.get('/',()=>{
-    console.log("perez changes")
-})
-
-
-app.listen(port,()=>{
-    console.log("hello I am connected to the server................running on this port", port);
-})
+app.listen(port, () => {
+  console.log(
+    "hello I am connected to the server................running on this port",
+    port
+  );
+});
