@@ -25,11 +25,11 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.dbConfig = void 0;
 const dotenv = __importStar(require("dotenv"));
-dotenv.config({});
+dotenv.config();
 exports.dbConfig = {
-    user: process.env.DB_USER || 'sa',
-    password: process.env.DB_PASSWORD || 'Omosh123',
-    database: process.env.DB_NAME || 'ProjectManagementDB',
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
     server: 'localhost',
     pool: {
         max: 10,
