@@ -1,15 +1,16 @@
 import { Request,Response } from "express";
 import {v4} from "uuid"
-import DatabaseHelper from "../helpers/dbConnectionHelper";
+// import DatabaseHelper from "../helpers/dbConnectionHelper";
+import DatabaseHelper from "../dbhelpers/dbhelpers";
 import dotenv from 'dotenv'
 
 
-const databaseConnection=DatabaseHelper.getInstance();
+const databaseConnection=new DatabaseHelper()
 
 
 export const getCart=async(req:Request,res:Response)=>{
     try {
-         const cart=(await databaseConnection.exec('getCart',{userID:req.info?.id!})).recordset
+         const cart=(await databaseConnection.executeute('getCart',{userID:req.info?.id!})).recordset
          if(!cart.length){
             return res.status(404).json({message:'your cart is empty'});
          }
@@ -24,16 +25,16 @@ export const addItem=async (req:Request,res:Response)=>{
     try{
         const userID=req.info?.id
         const {productID}=req.body
-        const cart=(await databaseConnection.exec('getCart',{userID:req.info?.id!})).recordset
+        const cart=(await databaseConnection.execute('getCart',{userID:req.info?.id!})).recordset
         let cartItem=cart.filter((item)=>{return item.userID===userID&&item.productID===productID})[0]
         
         if(cartItem){
-            await databaseConnection.exec('updateCartItemQuantity',{id,quantity})
+            await databaseConnection.execute('updateCartItemQuantity',{id,quantity})
             return res.status(200).json({message:"cart item quantity updated"})
         }
         else{
             const id=v4();  
-            await databaseConnection.exec('addCartItem',{id,userID,productID})
+            await databaseConnection.execute('addCartItem',{id,userID,productID})
             return res.status(201).json({message:"item added to cart"})
         }
 
@@ -47,11 +48,11 @@ export const deleteCartItem=async(req:Request,res:Response)=>{
     try {
         const userID=req.info?.id
         const {itemID}=req.params
-        const cart=(await databaseConnection.exec('getCart',{userID})).recordset
+        const cart=(await databaseConnection.execute('getCart',{userID})).recordset
         let cartItem=cart.filter((item)=>{return item.id===itemID})[0]
         
         if(cartItem){
-            await databaseConnection.exec('deleteCartItem',{id:itemID})
+            await databaseConnection.execute('deleteCartItem',{id:itemID})
             return res.status(200).json({message:"cart item quantity deleted"})
         }
         else{
@@ -67,7 +68,7 @@ export const deleteCartItem=async(req:Request,res:Response)=>{
 export  const clearCart=async (req:Request,res:Response)=>{
     try {
           let userID=req.info?.id
-          await databaseConnection.exec('clearCart',{userID})
+          await databaseConnection.execute('clearCart',{userID})
           return res.status(200).json({message:"cart cleared"})
         
     } catch (error:any) {
@@ -81,11 +82,11 @@ export const updateCartItemQuantity=async(req:Request,res:Response)=>{
         const userID=req.info?.id
         const{quantity}=req.body
         const id=req.params.itemID
-        const cart=(await databaseConnection.exec('getCart',{userID:req.info?.id!})).recordset
+        const cart=(await databaseConnection.execute('getCart',{userID:req.info?.id!})).recordset
         let cartItem=cart.filter((item)=>{return item.id==id})[0]
 
         if(cartItem){
-            await databaseConnection.exec('updateCartItemQuantity',{id,quantity})
+            await databaseConnection.execute('updateCartItemQuantity',{id,quantity})
             return res.status(200).json({message:'Cart Item Updated'})
         }
         else{

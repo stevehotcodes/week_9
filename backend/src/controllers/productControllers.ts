@@ -1,11 +1,11 @@
 import {v4} from 'uuid';
 import { Request,Response } from 'express';
-import DatabaseHelper from '../helpers/dbConnectionHelper';
-import { IProduct } from '../Types_and_interfaces/interfaces';
+import DatabaseHelper from '../dbhelpers/dbhelpers';
+import { IProduct } from '../interfaces/productInterface';
 import { IpOptions } from 'joi';
 
 
-const db=DatabaseHelper.getInstance()
+const db=new DatabaseHelper()
 
 
 export const createNewProduct=async (req:Request,res:Response)=>{
@@ -17,7 +17,7 @@ export const createNewProduct=async (req:Request,res:Response)=>{
             return res.status(400).json({message: 'missing all or either productName, productDescription, price,productImage,category,productstock'})
         }
 
-        let result=await (await db.exec("createNewProduct",{id,productName,productDescription,price,productImageUrl,category,productStock})).rowsAffected
+        let result=await (await db.execute("createNewProduct",{id,productName,productDescription,price,productImageUrl,category,productStock})).rowsAffected
         
         console.log(result)
 
@@ -37,7 +37,7 @@ export const getProducts=async (req:Request,res:Response)=>{
 
          let {category}=req.params
 
-         let products:IProduct[]=category?(await db.exec("getProductsByCategory",{category})).recordset:(await db.exec('getAllProducts')).recordset
+         let products:IProduct[]=category?(await db.execute("getProductsByCategory",{category})).recordset:(await db.execute('getAllProducts')).recordset
 
          if(!products.length){
             return res.status(404).json({message: 'No products found'})
@@ -54,7 +54,7 @@ export const getAProduct =async (req:Request,res:Response)=>{
     try{
         let {id}=req.params
 
-         let products:IProduct=(await db.exec("getProductById",{id})).recordset[0]
+         let products:IProduct=(await db.execute("getProductById",{id})).recordset[0]
 
          if(!products){
             return res.status(404).json({message: 'No product found'})
@@ -74,13 +74,13 @@ export const updateProduct =async (req:Request,res:Response)=>{
         if(!productName||!productDescription ||!price||!productImageUrl ||!category ||!productStock){
             return res.status(400).json({message: 'missing all or either productName, productDescription, price,productImage,category,productstock'})
         }
-        let product:IProduct= await (await db.exec('getProductById', {id})).recordset[0]
+        let product:IProduct= await (await db.execute('getProductById', {id})).recordset[0]
         if(!product){
             return res.status(404).json({message: 'The product does not exist'});
 
          }
 
-        await db.exec('updateProduct',{id,productName,productDescription,price,productImageUrl,category,productStock})
+        await db.execute('updateProduct',{id,productName,productDescription,price,productImageUrl,category,productStock})
         return res.status(200).json({message:"the product's details was updated successfully "})
 
     }
@@ -93,12 +93,12 @@ export const deleteProduct=async (req:Request,res:Response)=>{
     try {
         let {id}=req.params
 
-        let product:IProduct=(await db.exec("getProductById",{id})).recordset[0]
+        let product:IProduct=(await db.execute("getProductById",{id})).recordset[0]
 
         if(!product){
            return res.status(404).json({message: 'No product found'})
          }
-         await (await db.exec('deleteProduct', {id})).recordset
+         await (await db.execute('deleteProduct', {id})).recordset
          return res.status(200).json({message:"item deleted successfully"})
        
 
