@@ -14,10 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mssql_1 = __importDefault(require("mssql"));
 const dbConfig_1 = require("../config/dbConfig");
-class DatabaseHelper {
-    static getInstance() {
-        throw new Error("Method not implemented.");
-    }
+class Connection {
     //   getConnection: any;
     constructor() {
         this.pool = this.getConnection();
@@ -52,4 +49,4 @@ class DatabaseHelper {
         });
     }
 }
-exports.default = DatabaseHelper;
+exports.default = Connection;

@@ -1,15 +1,16 @@
 import { Router } from "express";
 import { addItem, clearCart, deleteCartItem, getCart, updateCartItemQuantity } from "../controllers/cartControllers";
+import { accountRequired } from "../middlewares/verifyTokens";
 
 
 
 const cartRouter=Router()
 
-cartRouter.get('',getCart)
-cartRouter.post('',addItem)
-cartRouter.delete('/:itemID',deleteCartItem);
-cartRouter.delete('',clearCart)
-cartRouter.patch('/:itemID',updateCartItemQuantity)
+cartRouter.get('',accountRequired,getCart)
+cartRouter.post('',accountRequired,addItem)
+cartRouter.delete('/:itemID',accountRequired,deleteCartItem);
+cartRouter.delete('',accountRequired,clearCart)
+cartRouter.patch('/:itemID',accountRequired,updateCartItemQuantity)
 
 
 

@@ -1,11 +1,11 @@
 import { Request,Response} from "express";
-import DatabaseHelper from "../dbhelpers/dbhelpers";
+import Connection from "../dbhelpers/dbhelpers";
 import {v4} from 'uuid'
 import { ExtendedUser } from "../middlewares/verifyTokens";
 
 
 
-const databaseConnection=new DatabaseHelper()
+const databaseConnection=new Connection ()
 
 
 export const createAnOrder=async(req:ExtendedUser,res:Response)=>{
@@ -94,7 +94,7 @@ export const getOrderById=async(req:ExtendedUser,res:Response)=>{
             return res.status(404).json({message:"order not found or does not exist"})
         }
         if(req.info?.id==orderItems[0].userID || req.info?.role=="admin"){
-
+            
         }
         
     } catch (error) {

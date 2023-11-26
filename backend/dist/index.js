@@ -30,6 +30,7 @@ const express_1 = __importStar(require("express"));
 const userRoutes_1 = __importDefault(require("./routes/userRoutes"));
 const cors_1 = __importDefault(require("cors"));
 const productRoutes_1 = __importDefault(require("./routes/productRoutes"));
+const cartRoutes_1 = __importDefault(require("./routes/cartRoutes"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use((0, express_1.json)());
@@ -39,6 +40,7 @@ const port = 3000;
 // })
 app.use("/products", productRoutes_1.default);
 app.use("/user", userRoutes_1.default);
+app.use("/cart", cartRoutes_1.default);
 app.listen(port, () => {
     console.log("hello I am connected to the server................running on this port", port);
 });
