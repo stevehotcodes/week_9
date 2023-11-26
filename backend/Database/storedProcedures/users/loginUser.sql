@@ -4,7 +4,5 @@ CREATE OR ALTER PROCEDURE loginUser(
     @password VARCHAR(200))
 AS
 BEGIN
-
     SELECT * FROM users WHERE email= @email
-
 END
