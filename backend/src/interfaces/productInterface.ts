@@ -8,3 +8,4 @@ export interface IProduct{
     isDeleted: boolean
     category:string
 }
+
