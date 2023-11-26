@@ -1,13 +1,14 @@
 import { Request,Response} from "express";
 import DatabaseHelper from "../dbhelpers/dbhelpers";
 import {v4} from 'uuid'
+import { ExtendedUser } from "../middlewares/verifyTokens";
 
 
 
 const databaseConnection=new DatabaseHelper()
 
 
-export const createAnOrder=async(req:Request,res:Response)=>{
+export const createAnOrder=async(req:ExtendedUser,res:Response)=>{
     try {
         const userID=req.info?.id!
         const orderID=v4();
@@ -43,7 +44,7 @@ export const createAnOrder=async(req:Request,res:Response)=>{
     }
 }
 
-export const cancelOrder =async(req:Request,res:Response)=>{
+export const cancelOrder =async(req:ExtendedUser,res:Response)=>{
     try{
         const userID=req.info?.id!
         const {id}=req.params;
@@ -65,10 +66,10 @@ export const cancelOrder =async(req:Request,res:Response)=>{
     }
 }
 
-export const getOrdersByUser=async(req:Request,res:Response)=>{
+export const getOrdersByUser=async(req:ExtendedUser,res:Response)=>{
     try {
 
-        const userID=req.info?.id
+        const userID=req.info?.id!
         const orders=await(await databaseConnection.execute('getOrdersByUser',{userID})).recordset
         if(orders.length){
             return res.status(200).json(orders)
@@ -83,7 +84,7 @@ export const getOrdersByUser=async(req:Request,res:Response)=>{
     }
 }
 
-export const getOrderById=async(req:Request,res:Response)=>{
+export const getOrderById=async(req:ExtendedUser,res:Response)=>{
     try {
 
         const {id}=req.params

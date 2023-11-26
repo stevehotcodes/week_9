@@ -12,25 +12,43 @@ export interface ExtendedUser extends Request {
 export const verifyToken = (
   req: ExtendedUser,
   res: Response,
-  next: NextFunction
+  privilege  :false |'admin'=false
+  // next: NextFunction
 ) => {
   try {
     const token = req.headers["token"] as string;
 
     if (!token) {
-      return res.status(404).json({
+      return res.status(401).json({
         message: "You do not have access",
       });
     }
 
-    const data = jwt.verify(token, process.env.SECRET as string) as User;
+    const decodedUserData = jwt.verify(token, process.env.SECRET_KEY as string) as User;
 
-    req.info = data;
-  } catch (error) {
+    req.info = decodedUserData;
+    if(privilege&&decodedUserData.role !==privilege){
+      return res.status(401).json({message:"Unauthorised"})
+    }
+  } catch (error:any) {
     return res.json({
-      message: error,
+      message: error.message,
     });
   }
+  return false
 
-  next();
+  
 };
+
+export const accountRequired =(req:ExtendedUser, res:Response, next:NextFunction)=>{
+  const error = verifyToken(req, res)
+  if (error) {return error}
+  next()
+}
+
+export const adminPrivilege=(req:ExtendedUser,res:Response,next:NextFunction)=>{
+  const error=verifyToken(req,res,'admin')
+  if (error) {return error}
+  next()
+
+}

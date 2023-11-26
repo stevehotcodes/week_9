@@ -44,10 +44,10 @@ const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         if (!(0, lodash_1.isEmpty)(emailTaken)) {
             return res.json({ error: "This email is already in use" });
         }
-        let customer_id = (0, uuid_1.v4)();
+        let id = (0, uuid_1.v4)();
         const hashedPwd = yield bcrypt_1.default.hash(password, 5);
         let result = dbhelper.execute("userRegistration", {
-            customer_id,
+            id,
             firstname,
             lastname,
             email,
@@ -80,7 +80,7 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (!correctPwd) {
             return res.status(401).json({ error: "Invalid credentials" });
         }
-        const token = jsonwebtoken_1.default.sign(rest, process.env.secret, {
+        const token = jsonwebtoken_1.default.sign(rest, process.env.SECRET_KEY, {
             expiresIn: "3600s",
         });
         console.log(token);

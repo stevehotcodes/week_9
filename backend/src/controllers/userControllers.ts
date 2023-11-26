@@ -27,11 +27,11 @@ export const registerUser = async (req: Request, res: Response) => {
       return res.json({ error: "This email is already in use" });
     }
 
-    let customer_id = v4();
+    let id = v4();
     const hashedPwd = await bcrypt.hash(password, 5);
 
     let result = dbhelper.execute("userRegistration", {
-      customer_id,
+      id,
       firstname,
       lastname,
       email,
@@ -66,7 +66,7 @@ export const loginUser = async (req: Request, res: Response) => {
     if (!correctPwd) {
       return res.status(401).json({ error: "Invalid credentials" });
     }
-    const token = jwt.sign(rest, process.env.secret as string, {
+    const token = jwt.sign(rest, process.env.SECRET_KEY as string, {
       expiresIn: "3600s",
     });
     console.log(token);

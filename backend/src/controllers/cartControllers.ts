@@ -1,16 +1,16 @@
 import { Request,Response } from "express";
 import {v4} from "uuid"
-// import DatabaseHelper from "../helpers/dbConnectionHelper";
 import DatabaseHelper from "../dbhelpers/dbhelpers";
 import dotenv from 'dotenv'
+import { ExtendedUser } from "../middlewares/verifyTokens";
 
 
 const databaseConnection=new DatabaseHelper()
 
 
-export const getCart=async(req:Request,res:Response)=>{
+export const getCart=async(req:ExtendedUser,res:Response)=>{
     try {
-         const cart=(await databaseConnection.executeute('getCart',{userID:req.info?.id!})).recordset
+         const cart=(await databaseConnection.execute('getCart',{userID:req.info?.id!})).recordset
          if(!cart.length){
             return res.status(404).json({message:'your cart is empty'});
          }
@@ -21,9 +21,9 @@ export const getCart=async(req:Request,res:Response)=>{
     }
 }
 
-export const addItem=async (req:Request,res:Response)=>{
+export const addItem=async (req:ExtendedUser,res:Response)=>{
     try{
-        const userID=req.info?.id
+        const userID=req.info?.id!
         const {productID}=req.body
         const cart=(await databaseConnection.execute('getCart',{userID:req.info?.id!})).recordset
         let cartItem=cart.filter((item)=>{return item.userID===userID&&item.productID===productID})[0]
@@ -44,9 +44,9 @@ export const addItem=async (req:Request,res:Response)=>{
     }
 }
 
-export const deleteCartItem=async(req:Request,res:Response)=>{
+export const deleteCartItem=async(req:ExtendedUser,res:Response)=>{
     try {
-        const userID=req.info?.id
+        const userID=req.info?.id!
         const {itemID}=req.params
         const cart=(await databaseConnection.execute('getCart',{userID})).recordset
         let cartItem=cart.filter((item)=>{return item.id===itemID})[0]
@@ -65,9 +65,9 @@ export const deleteCartItem=async(req:Request,res:Response)=>{
     }
 }
 
-export  const clearCart=async (req:Request,res:Response)=>{
+export  const clearCart=async (req:ExtendedUser,res:Response)=>{
     try {
-          let userID=req.info?.id
+          let userID=req.info?.id!
           await databaseConnection.execute('clearCart',{userID})
           return res.status(200).json({message:"cart cleared"})
         
@@ -77,7 +77,7 @@ export  const clearCart=async (req:Request,res:Response)=>{
     }
 }
 
-export const updateCartItemQuantity=async(req:Request,res:Response)=>{
+export const updateCartItemQuantity=async(req:ExtendedUser,res:Response)=>{
     try{
         const userID=req.info?.id
         const{quantity}=req.body
