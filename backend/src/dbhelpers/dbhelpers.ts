@@ -1,10 +1,7 @@
 import mssql from "mssql";
 import { dbConfig } from "../config/dbConfig";
 
-export default class DatabaseHelper {
-  static getInstance() {
-      throw new Error("Method not implemented.");
-  }
+export default class Connection {
   private pool: Promise<mssql.ConnectionPool>;
   //   getConnection: any;
   constructor() {

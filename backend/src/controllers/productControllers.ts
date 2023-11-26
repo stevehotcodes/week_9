@@ -1,11 +1,11 @@
 import {v4} from 'uuid';
 import { Request,Response } from 'express';
-import DatabaseHelper from '../dbhelpers/dbhelpers';
-import { IProduct } from '../interfaces/productInterface';
+import { IProduct } from '../interfaces/productInterface'
 import { IpOptions } from 'joi';
+import Connection from '../dbhelpers/dbhelpers';
 
 
-const db=new DatabaseHelper()
+const db=new Connection()
 
 
 export const createNewProduct=async (req:Request,res:Response)=>{
