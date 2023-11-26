@@ -67,7 +67,7 @@ export const loginUser = async (req: Request, res: Response) => {
       return res.status(401).json({ error: "Invalid credentials" });
     }
     const token = jwt.sign(rest, process.env.SECRET_KEY as string, {
-      expiresIn: "3600s",
+      expiresIn: "34000s",
     });
     console.log(token);
 

@@ -81,7 +81,7 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return res.status(401).json({ error: "Invalid credentials" });
         }
         const token = jsonwebtoken_1.default.sign(rest, process.env.SECRET_KEY, {
-            expiresIn: "3600s",
+            expiresIn: "34000s",
         });
         console.log(token);
         return res.status(200).json({ message: "LogIn successful", token });
