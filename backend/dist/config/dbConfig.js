@@ -27,17 +27,17 @@ exports.dbConfig = void 0;
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
 exports.dbConfig = {
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    server: 'localhost',
+    user: process.env.DB_USER || "sa",
+    password: process.env.DB_PASSWORD || "Jendaye@23",
+    database: process.env.DB_NAME || "Shoppie",
+    server: "localhost",
     pool: {
         max: 10,
         min: 1,
-        idleTimeoutMillis: 3000
+        idleTimeoutMillis: 3000,
     },
     options: {
         encrypt: false,
-        trustCertificate: true
-    }
+        trustCertificate: true,
+    },
 };
