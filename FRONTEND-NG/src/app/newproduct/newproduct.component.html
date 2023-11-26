@@ -1,0 +1,92 @@
+<div class="flex justify-center px-20 mt-20">
+  <form class="w-[45vw] bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <div class="main flex justify-between">
+      <div class="right">
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="Image">
+            Image
+          </label>
+          <input
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            type="text"
+            placeholder="Image"
+          />
+          <span id="dest-error" class="text-[12px] text-red-500"
+            >*Required</span
+          >
+        </div>
+        <div class="mb-4">
+          <label
+            class="block text-gray-700 text-sm font-bold mb-2"
+            for="Product Name"
+          >
+            Product Name
+          </label>
+          <input
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            type="text"
+            placeholder="Product Name"
+          />
+          <span id="dest-error" class="text-[12px] text-red-500"
+            >*Required</span
+          >
+        </div>
+        <div class="mb-4">
+          <label
+            class="block text-gray-700 text-sm font-bold mb-2"
+            for="description"
+          >
+            Description
+          </label>
+          <textarea
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="description"
+            rows="10"
+          ></textarea>
+
+          <span id="desc-error" class="text-[12px] text-red-500"
+            >*Required</span
+          >
+        </div>
+      </div>
+      <div class="left">
+        <div class="mb-4">
+          <label
+            class="block text-gray-700 text-sm font-bold mb-2"
+            for="Quantity"
+          >
+            Quantity
+          </label>
+          <input
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            min="1"
+            type="number"
+            placeholder="Quantity"
+          />
+          <span class="text-[12px] text-red-500"> *Required </span>
+        </div>
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="Price">
+            Price:
+          </label>
+          <input
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            min="1"
+            type="number"
+          />
+          <span id="password-error" class="text-[12px] text-red-500"
+            >*Required</span
+          >
+        </div>
+
+        <div class="flex items-center justify-between mt-10"></div>
+      </div>
+    </div>
+    <button
+      class="bg-[#433131] hover:bg-orange-200 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+      type="submit"
+    >
+      Add Product
+    </button>
+  </form>
+</div>
