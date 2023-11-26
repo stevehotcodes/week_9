@@ -5,6 +5,7 @@ import sql from "mssql"
 
 
 import cors from 'cors'
+import productRouter from "./routes/productRoutes";
 
 const app = Express();
 app.use(cors())
@@ -15,9 +16,12 @@ const port =3000
 
 
 
-app.get('/',()=>{
-    console.log("perez changes")
-})
+// app.get('/',()=>{
+//     console.log("perez changes")
+// })
+
+
+app.use("/products",productRouter)
 
 
 app.listen(port,()=>{
