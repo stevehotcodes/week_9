@@ -23,7 +23,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loginUser = exports.registerUser = void 0;
+exports.updateUser = exports.getAUserById = exports.getAllUsers = exports.loginUser = exports.registerUser = void 0;
 const validators_1 = require("../validators/validators");
 const dbhelpers_1 = __importDefault(require("../dbhelpers/dbhelpers"));
 const lodash_1 = require("lodash");
@@ -32,6 +32,9 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const mssql_1 = __importDefault(require("mssql"));
 const dbConfig_1 = require("../config/dbConfig");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const baseUrl = "http://localhost:3000";
+const APPHOST = process.env.APPHOST || 'http://localhost';
+const PORT = process.env.PORT || 3000;
 const dbhelper = new dbhelpers_1.default();
 const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -92,3 +95,94 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.loginUser = loginUser;
+const getAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let users = (yield dbhelper.execute('getAllUsers')).recordset;
+        if (!users) {
+            return res.status(404).json({ message: "No customers found" });
+        }
+        return res.status(200).json(users);
+    }
+    catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+});
+exports.getAllUsers = getAllUsers;
+const getAUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        let user = (yield dbhelper.execute('getAUserById', { id })).recordset[0];
+        if (!user) {
+            return res.status(404).json({ message: "No customer found" });
+        }
+        return res.status(200).json(user);
+    }
+    catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+});
+exports.getAUserById = getAUserById;
+const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let { id } = req.params;
+        let { firstname, lastname, email, password } = req.body;
+        if (!firstname || !lastname || !email || !password) {
+            return res.status(400).json({ message: 'required values are missing kindly check again' });
+        }
+        let user = yield (yield dbhelper.execute('getAUserById', { id })).recordset[0];
+        if (!user) {
+            return res.status(404).json({ message: 'The user does not exist' });
+        }
+        const hashedPassword = yield bcrypt_1.default.hash(password, 5);
+        yield dbhelper.execute('updateUser', { id, firstname, lastname, email, password: hashedPassword });
+        return res.status(200).json({ message: "the user's details was updated successfully " });
+    }
+    catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+});
+exports.updateUser = updateUser;
+// export const forgotPassword:RequestHandler = async (req, res) => {
+//   // sends an email to the user to reset password
+//   try {
+//       let link =  APPHOST + ':' + PORT + '/users/reset-password'
+//       const {email} = req.query as {email:string}
+//       if (!email) {
+//           return res.status(400).json({message: 'provide an email in the query'})
+//       }
+//       const user = await getUser('email', email)
+//       if (user) {
+//           const newPassword = securePassword.randomPassword({
+//               length:12,
+//               characters: [
+//                   securePassword.upper,
+//                   securePassword.lower,
+//                   securePassword.symbols,
+//                   securePassword.digits
+//               ]
+//           })
+//           const token = jwt.sign({id:user.id,password:newPassword}, process.env.SECRET_KEY as string, {expiresIn:'300s'})
+//           link = link+'?reset='+token
+//           await ejs.renderFile(path.resolve(__dirname, '../../templates/reset-password-email.ejs'), {firstName:user.firstname, newPassword, link}, async (err, emailHTML)=>{
+//               if (err) {
+//                   console.error(err)
+//                   return false
+//               }
+//               const mailer = NodeMail.getInstance()
+//               await mailer.send(user.email, 'Password Reset Link', emailHTML)
+//               return true
+//           })
+//       }
+//       return res.status(200).json({message: `If a user exists with email: <${email}> a reset link will be sent to the email provided. Check spam folder in case you don't see any email.`})
+//   }
+//   catch (error:any) {
+//       return res.status(500).json({message: error.message})
+//   }
+// }
+// export const resetPassword =async(req:ExtendedUser,res:Response)=>{
+//   try{
+//      const {reset}=req.query
+//   }
+//   catch(error:any){
+//   }
+// }

@@ -142,3 +142,41 @@ export const getAnOrderByStatus=async(req:Request<{status:string,id:string}>,res
 
 
 }
+
+export const updateOrdertoShipping=async (req:ExtendedUser,res:Response)=>{
+    try {
+         const {id}=req.params;
+         const order:IorderWithInfo[]=(await databaseConnection.execute('getAnOrderById',{id})).recordset
+         if(!order.length){
+            return res.status(404).json({message:"order not found or does not exist"})
+        }
+        if(req.info?.id==order[0].userID || req.info?.role=="admin"){
+            await databaseConnection.execute('updateOrdertoShipping',{id})
+            return res.status(200).json({message:"order status switched to shipping"})
+        }
+
+
+        
+    } catch (error:any) {
+        return res.status(500).json({error:error.message})
+    }
+}
+
+export const updateOrdertoShipped=async (req:ExtendedUser,res:Response)=>{
+    try {
+         const {id}=req.params;
+         const order:IorderWithInfo[]=(await databaseConnection.execute('getAnOrderById',{id})).recordset
+         if(!order.length){
+            return res.status(404).json({message:"order not found or does not exist"})
+        }
+        if(req.info?.id==order[0].userID || req.info?.role=="admin"){
+            await databaseConnection.execute('updateOrdertoShipped',{id})
+            return res.status(200).json({message:"order status switched to shipped"})
+        }
+            
+    } catch (error:any) {
+        return res.status(500).json({error:error.message})
+    }
+}
+
+

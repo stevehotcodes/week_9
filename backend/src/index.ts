@@ -9,14 +9,11 @@ import orderRouter from "./routes/orderRoutes";
 
 
 const app = Express();
+
 app.use(cors());
 app.use(json());
 
 const port = 3000;
-
-// app.get('/',()=>{
-//     console.log("perez changes")
-// })
 
 
 app.use("/products",productRouter)
