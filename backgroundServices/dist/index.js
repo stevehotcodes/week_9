@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const node_cron_1 = __importDefault(require("node-cron"));
 const welcomeUser_1 = require("./mailservices/welcomeUser");
-// import { welcomeUser } from './mailservices/welcomeUser'
 const app = (0, express_1.default)();
 const run = () => __awaiter(void 0, void 0, void 0, function* () {
     node_cron_1.default.schedule('*/10 * * * * *', () => __awaiter(void 0, void 0, void 0, function* () {

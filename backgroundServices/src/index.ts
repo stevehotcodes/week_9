@@ -1,7 +1,7 @@
 import express from 'express'
 import cron from 'node-cron'
 import { welcomeUser } from './mailservices/welcomeUser'
-// import { welcomeUser } from './mailservices/welcomeUser'
+
 
 
 const app = express()
