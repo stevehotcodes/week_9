@@ -36,9 +36,6 @@ const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use((0, express_1.json)());
 const port = 3000;
-// app.get('/',()=>{
-//     console.log("perez changes")
-// })
 app.use("/products", productRoutes_1.default);
 app.use("/user", userRoutes_1.default);
 app.use("/cart", cartRoutes_1.default);

@@ -95,3 +95,19 @@ const deleteProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.deleteProduct = deleteProduct;
+//search  feature
+// export const searchProduct =async(req:Request,res:Response)=>{
+//     try {
+//         let searchTerm=req.query.q
+//         if(!searchTerm){
+//             res.status(400).json({message:"no search query was provided"});
+//         }
+//         let searchResult:IProduct[]=(await db.query(`SELECT * FROM products WHERE productName LIKE '%${searchTerm}'`)).recordset;
+//         if(!searchResult.length){
+//             res.status(404).json({message:"no results found"})
+//         }
+//         return res.status(200).json(searchResult)
+//     } catch (error:any) {
+//         return res.status(500).json({error:error.message})
+//     }
+// }

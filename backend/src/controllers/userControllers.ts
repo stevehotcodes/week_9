@@ -7,6 +7,7 @@ import bcrypt from "bcrypt";
 import mssql from "mssql";
 import { dbConfig } from "../config/dbConfig";
 import jwt from "jsonwebtoken";
+import { IUserDetails } from "../interfaces/userInterface";
 
 const dbhelper = new Connection();
 
@@ -77,3 +78,33 @@ export const loginUser = async (req: Request, res: Response) => {
     return res.status(500).json({ error: "server error" });
   }
 };
+
+export const getAllUsers =async(req:Request,res:Response)=>{
+  try {
+         let users:IUserDetails[]=(await dbhelper.execute('getAllUsers')).recordset
+         if(!users){
+            return res.status(404).json({message:"No customers found"});
+         }   
+         
+
+         return res.status(200).json(users) 
+  } catch (error:any) {
+      return res.status(500).json({error:error.message})
+    
+  }
+}
+
+export const getAUserById =async(req:Request,res:Response)=>{
+  try {
+        const {id}=req.params
+         let user:IUserDetails=(await dbhelper.execute('getAUserById',{id})).recordset[0]
+         if(!user){
+            return res.status(404).json({message:"No customer found"});
+         }   
+         
+         return res.status(200).json(user) 
+  } catch (error:any) {
+      return res.status(500).json({error:error.message})
+    
+  }
+}

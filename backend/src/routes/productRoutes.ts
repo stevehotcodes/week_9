@@ -18,5 +18,4 @@ productRouter.delete("/:id",adminPrivilege,deleteProduct)
 
 
 
-
 export default productRouter

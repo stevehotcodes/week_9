@@ -23,7 +23,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loginUser = exports.registerUser = void 0;
+exports.getAUserById = exports.getAllUsers = exports.loginUser = exports.registerUser = void 0;
 const validators_1 = require("../validators/validators");
 const dbhelpers_1 = __importDefault(require("../dbhelpers/dbhelpers"));
 const lodash_1 = require("lodash");
@@ -92,3 +92,30 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.loginUser = loginUser;
+const getAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let users = (yield dbhelper.execute('getAllUsers')).recordset;
+        if (!users) {
+            return res.status(404).json({ message: "No customers found" });
+        }
+        return res.status(200).json(users);
+    }
+    catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+});
+exports.getAllUsers = getAllUsers;
+const getAUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        let user = (yield dbhelper.execute('getAUserById', { id })).recordset[0];
+        if (!user) {
+            return res.status(404).json({ message: "No customer found" });
+        }
+        return res.status(200).json(user);
+    }
+    catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+});
+exports.getAUserById = getAUserById;

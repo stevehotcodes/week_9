@@ -1,5 +1,5 @@
 import {v4} from 'uuid';
-import { Request,Response } from 'express';
+import { Request,Response, response } from 'express';
 import { IProduct } from '../interfaces/productInterface'
 import { IpOptions } from 'joi';
 import Connection from '../dbhelpers/dbhelpers';
@@ -106,3 +106,28 @@ export const deleteProduct=async (req:Request,res:Response)=>{
         return res.status(500).json({message: error.message})
     }
 }
+
+//search  feature
+
+// export const searchProduct =async(req:Request,res:Response)=>{
+//     try {
+//         let searchTerm=req.query.q
+
+//         if(!searchTerm){
+//             res.status(400).json({message:"no search query was provided"});
+
+//         }
+//         let searchResult:IProduct[]=(await db.query(`SELECT * FROM products WHERE productName LIKE '%${searchTerm}'`)).recordset;
+//         if(!searchResult.length){
+//             res.status(404).json({message:"no results found"})
+//         }
+
+//         return res.status(200).json(searchResult)
+
+
+//     } catch (error:any) {
+//         return res.status(500).json({error:error.message})
+        
+//     }
+// }
+
