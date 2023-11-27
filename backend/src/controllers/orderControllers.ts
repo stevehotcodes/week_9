@@ -179,4 +179,20 @@ export const updateOrdertoShipped=async (req:ExtendedUser,res:Response)=>{
     }
 }
 
+export const updateOrdertoDelivered=async (req:ExtendedUser,res:Response)=>{
+    try {
+         const {id}=req.params;
+         const order:IorderWithInfo[]=(await databaseConnection.execute('getAnOrderById',{id})).recordset
+         if(!order.length){
+            return res.status(404).json({message:"order not found or does not exist"})
+        }
+        if(req.info?.id==order[0].userID || req.info?.role=="admin"){
+            await databaseConnection.execute('updateOrdertoDelivered',{id})
+            return res.status(200).json({message:"order status switched to delivered"})
+        }
+            
+    } catch (error:any) {
+        return res.status(500).json({error:error.message})
+    }
+}
 

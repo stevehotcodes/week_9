@@ -3,10 +3,10 @@ CREATE OR ALTER PROCEDURE addSalesItem(
 @productID VARCHAR (200),
 @quantity INT,
 @orderID VARCHAR(200),
-@price DECIMAL(10,2) 
+@price INT 
 )
 AS
 BEGIN
-INSERT INTO sales (id,productID,quantity,orderID,price)
-VALUES (@id,@productID,@quantity,@orderID,@price)
+    INSERT INTO sales (id,productID,quantity,orderID,price)
+    VALUES (@id,@productID,@quantity,@orderID,@price)
 END
