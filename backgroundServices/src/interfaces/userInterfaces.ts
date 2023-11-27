@@ -7,3 +7,4 @@ export interface IUserDetails{
     isDeleted: 0 | 1
     
   }
+  
