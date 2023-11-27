@@ -12,29 +12,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.welcomeUser = void 0;
+exports.notificationShipping = void 0;
 const ejs_1 = __importDefault(require("ejs"));
 const mssql_1 = __importDefault(require("mssql"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const dbConfig_1 = require("../config/dbConfig");
 const emailHelper_1 = require("../helpers/emailHelper");
 dotenv_1.default.config();
-const welcomeUser = () => __awaiter(void 0, void 0, void 0, function* () {
+const notificationShipping = () => __awaiter(void 0, void 0, void 0, function* () {
     const pool = yield mssql_1.default.connect(dbConfig_1.sqlConfig);
-    const users = yield (yield pool.request().query('SELECT * FROM users WHERE isWelcomed= 0')).recordset;
-    console.log(users);
-    for (let user of users) {
-        ejs_1.default.renderFile('templates/welcomeUser.ejs', { Name: user.firstname }, (error, data) => __awaiter(void 0, void 0, void 0, function* () {
+    const order = yield (yield pool.request().query(`SELECT * FROM orders WHERE orderStatus='shipping' AND isEmailSent=0`)).recordset;
+    console.log("orders under shipping status", order);
+    for (let item of order) {
+        ejs_1.default.renderFile('templates/notificationShipping.ejs', { Name: item.customerFirstname }, (error, data) => __awaiter(void 0, void 0, void 0, function* () {
             let mailOptions = {
                 from: process.env.EMAIL,
-                to: user.email,
-                subject: "Welcome Onboard",
+                to: item.customerEmail,
+                subject: "SHIPPING NOTIFICATION",
                 html: data
             };
             try {
                 yield (0, emailHelper_1.sendMail)(mailOptions);
-                yield pool.request().query('UPDATE users SET isWelcomed= 1 WHERE isWelcomed = 0');
-                console.log('Emails send to new users');
+                yield pool.request().query('UPDATE orders SET isEmailSent = 1 WHERE isEmailSent = 0');
+                console.log(`Notifying customer${item.customerFirstname} their order is under shipping status`);
             }
             catch (error) {
                 console.log(error);
@@ -42,4 +42,4 @@ const welcomeUser = () => __awaiter(void 0, void 0, void 0, function* () {
         }));
     }
 });
-exports.welcomeUser = welcomeUser;
+exports.notificationShipping = notificationShipping;
