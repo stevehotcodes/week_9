@@ -2,25 +2,26 @@
   class="flex flex-col items-left px-8 py-10 bg-[#433131] w-[20vw] h-[100vh] text-white font-bold"
 >
   <div>
-    <img
-      src="https://image.shutterstock.com/image-vector/default-avatar-profile-icon-grey-260nw-518740768.jpg"
-      class="rounded-full object-cover h-16 w-16"
-      alt=""
-    />
+    <a routerLink="/profile" class="cursor-pointer"
+      ><img
+        src="https://image.shutterstock.com/image-vector/default-avatar-profile-icon-grey-260nw-518740768.jpg"
+        class="rounded-full object-cover h-16 w-16"
+        alt=""
+    /></a>
 
     <p>Hello <span>Admin</span></p>
-    <nav>
+    <nav class="mt-10">
       <a class="cursor-pointer">View Sales</a>
+      <hr />
       <br />
-      <a class="cursor-pointer">Products</a>
+      <a routerLink="/productlists" class="cursor-pointer">Products list</a>
+      <hr />
       <br />
 
-      <a class="cursor-pointer">User Accounts</a>
+      <a routerLink="/profile" class="cursor-pointer">My Profile</a>
+      <hr />
       <br />
-
-      <a class="cursor-pointer">My Profile</a>
-      <br />
-      <a class="cursor-pointer">LogOut</a>
+      <a routerLink="" class="cursor-pointer">LogOut</a>
     </nav>
   </div>
 </div>
