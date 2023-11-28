@@ -4,3 +4,4 @@ BEGIN
 
     SELECT * FROM users
 END
+
