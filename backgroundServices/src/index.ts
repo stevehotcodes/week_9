@@ -2,6 +2,7 @@ import express from 'express'
 import cron from 'node-cron'
 import { welcomeUser } from './mailservices/welcomeUser'
 import { notificationShipping } from './mailservices/notificationShipping'
+import { notificationDelivery } from './mailservices/deliveryNotification'
 
 
 
@@ -24,8 +25,17 @@ const shippingNotification = async()=>{
     
 }
 
+const deliveryNotification = async()=>{
+    cron.schedule('*/10 * * * * *', async()=>{
+        console.log('Checking for orders with status of shipping');
+        await notificationDelivery()
+    })
+    
+}
+
 run()
 shippingNotification()
+deliveryNotification()
 
 
 app.listen(4401, ()=>{
