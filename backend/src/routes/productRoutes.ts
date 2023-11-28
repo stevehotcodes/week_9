@@ -1,18 +1,18 @@
 import { Router } from "express";
 import { createNewProduct, deleteProduct, getAProduct, getProducts, updateProduct } from "../controllers/productControllers";
+import { adminPrivilege } from "../middlewares/verifyTokens";
 
 
 
 
 const productRouter=Router();
 
-productRouter.post("/new",createNewProduct)
+productRouter.post("/new",adminPrivilege,createNewProduct)
 productRouter.get("/all",getProducts)
 productRouter.get("/category/:category",getProducts);
 productRouter.get("/one/:id",getAProduct)
-productRouter.put("/:id",updateProduct)
-productRouter.delete("/:id",deleteProduct)
-
+productRouter.put("/:id",adminPrivilege,updateProduct)
+productRouter.delete("/:id",adminPrivilege,deleteProduct)
 
 
 

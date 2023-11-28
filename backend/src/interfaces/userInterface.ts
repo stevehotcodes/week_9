@@ -1,7 +1,7 @@
 import { Request } from "express";
 
 export interface User {
-  customer_id: string;
+  id: string;
   firstname: string;
   email: string;
   password: string;
@@ -10,4 +10,14 @@ export interface User {
 export interface LoginUser extends Request {
   email: string;
   password: string;
+}
+
+export interface IUserDetails{
+  id: string;
+  firstname: string;
+  email: string;
+  password: string;
+  role: string;
+  isDeleted: 0 | 1
+  
 }
