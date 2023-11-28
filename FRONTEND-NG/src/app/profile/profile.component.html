@@ -1,0 +1,99 @@
+<div>
+  <div class="w-[100vw] flex justify-center py-10 px-10">
+    <div></div>
+    <form class="w-[60vw] bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <div class="mb-4">
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="first name"
+        >
+          First Name
+        </label>
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          type="text"
+          placeholder="First Name"
+        />
+        <span id="fname-error" class="text-[12px] text-red-500">*Required</span>
+      </div>
+      <div class="mb-4">
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="last name"
+        >
+          Last Name
+        </label>
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          type="text"
+          placeholder="Last Name"
+        />
+        <span id="lname-error" class="text-[12px] text-red-500">*Required</span>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+          Email address
+        </label>
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          type="text"
+          placeholder="Email Address"
+        />
+        <span class="text-[12px] text-red-500"> *Required </span>
+      </div>
+      <div class="mb-6">
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="password"
+        >
+          New Password
+        </label>
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          formControlName="password"
+          type="password"
+          placeholder="Enter New Password"
+        />
+        <span id="password-error" class="text-[12px] text-red-500"
+          >*Required</span
+        >
+      </div>
+      <div class="mb-6">
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="confirm-password"
+        >
+          Confirm New Password
+        </label>
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          formControlName="confirmPassword"
+          type="password"
+          placeholder="Confirm New Password"
+        />
+        <span id="confirm-password-error" class="text-[12px] text-red-500"
+          >*Required</span
+        >
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-between">
+        <div class="lg:flex lg:justify-between">
+          <button
+            class="bg-[#433131] hover:bg-black text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="submit"
+          >
+            Update Details
+          </button>
+          <p class="mt-2 md:mt-0 md:ml-2">
+            <a
+              routerLink="/"
+              class="inline-block align-baseline font-bold text-sm text-[#433131] hover:text-orange-500"
+              >Cancel
+            </a>
+          </p>
+        </div>
+      </div>
+      <div class="flex items-center justify-between mt-10"></div>
+    </form>
+  </div>
+</div>

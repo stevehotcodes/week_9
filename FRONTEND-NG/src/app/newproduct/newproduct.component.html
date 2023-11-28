@@ -1,0 +1,108 @@
+<div class="flex">
+  <app-admin-aside></app-admin-aside>
+
+  <div class="overlay flex justify-center px-20 mt-20">
+    <form
+      class="h-[60vh] max-h-[80vh] grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+    >
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="image"
+          >Image</label
+        >
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="image"
+          type="text"
+          placeholder="Image URL"
+        />
+        <span class="text-[12px] text-red-500">*Required</span>
+      </div>
+
+      <div class="mb-4">
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="productName"
+          >Product Name</label
+        >
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="productName"
+          type="text"
+          placeholder="Product Name"
+        />
+        <span class="text-[12px] text-red-500">*Required</span>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="category"
+          >Category</label
+        >
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="category"
+          type="text"
+          placeholder="Category"
+        />
+        <span class="text-[12px] text-red-500">*Required</span>
+      </div>
+
+      <div class="mb-4">
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="description"
+          >Description</label
+        >
+        <textarea
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="description"
+          placeholder="Description"
+          rows="5"
+        ></textarea>
+        <span class="text-[12px] text-red-500">*Required</span>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="quantity"
+          >Quantity</label
+        >
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="quantity"
+          min="1"
+          type="number"
+          placeholder="Quantity"
+        />
+        <span class="text-[12px] text-red-500">*Required</span>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="price"
+          >Price</label
+        >
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="price"
+          min="1"
+          type="number"
+          placeholder="Price"
+        />
+        <span class="text-[12px] text-red-500">*Required</span>
+      </div>
+
+      <div class="flex items-center justify-between">
+        <button
+          class="col-span-2 bg-[#433131] hover:bg-orange-200 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          type="submit"
+        >
+          Add Product
+        </button>
+        <button
+          class="bg-[#433131] hover:bg-orange-200 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          type="submit"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
