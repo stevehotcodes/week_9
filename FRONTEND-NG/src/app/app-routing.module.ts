@@ -11,18 +11,22 @@ import { ProductlistComponent } from './productlist/productlist.component';
 import { OrdersComponent } from './orders/orders.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserdashboardComponent } from './userdashboard/userdashboard.component';
+import { UserGuard } from './guards/user.guard';
+import { DeactivateGuard } from './guards/deActivated.guard';
 
 const routes: Routes = [
   { path: '', component: LandingpageComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'add', component: NewproductComponent },
+  { path: 'login', component: LoginComponent,
+canActivate:[DeactivateGuard]},
+  { path: 'admin', component: AdminlandingComponent },
+  { path: 'add', component: NewproductComponent ,canActivate:[UserGuard]},
   { path: 'products', component: ProductsComponent },
   { path: 'register', component: RegistrationComponent },
   { path: 'customers', component: CustomersComponent },
-  { path: 'admin', component: AdminlandingComponent },
-  { path: 'orders', component: OrdersComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'user', component: UserdashboardComponent },
+
+  { path: 'orders', component: OrdersComponent ,canActivate:[UserGuard]},
+  { path: 'profile', component: ProfileComponent ,canActivate:[UserGuard]},
+  { path: 'user', component: UserdashboardComponent ,canActivate:[UserGuard]},
   { path: 'productlists', component: ProductlistComponent },
 ];
 
