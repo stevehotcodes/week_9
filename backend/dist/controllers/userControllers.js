@@ -87,7 +87,7 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             expiresIn: "34000s",
         });
         console.log(token);
-        return res.status(200).json({ message: "LogIn successful", token });
+        return res.status(200).json({ message: "LogIn successful", token, email });
     }
     catch (error) {
         console.error(error);
