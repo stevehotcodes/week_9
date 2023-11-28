@@ -12,29 +12,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.notificationShipping = void 0;
+exports.notificationDelivery = void 0;
 const ejs_1 = __importDefault(require("ejs"));
 const mssql_1 = __importDefault(require("mssql"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const dbConfig_1 = require("../config/dbConfig");
 const emailHelper_1 = require("../helpers/emailHelper");
 dotenv_1.default.config();
-const notificationShipping = () => __awaiter(void 0, void 0, void 0, function* () {
+const notificationDelivery = () => __awaiter(void 0, void 0, void 0, function* () {
     const pool = yield mssql_1.default.connect(dbConfig_1.sqlConfig);
-    const order = yield (yield pool.request().query(`SELECT * FROM orders WHERE orderStatus='shipping' AND isEmailSent=0`)).recordset;
-    console.log("orders under shipping status", order);
+    const order = yield (yield pool.request().query(`SELECT * FROM orders WHERE orderStatus='shipped' AND isEmailSent=1`)).recordset;
+    console.log("orders delivered status", order);
     for (let item of order) {
-        ejs_1.default.renderFile('templates/notificationShipping.ejs', { Name: item.customerFirstname, productOrderedName: item.productName, productQuantity: item.quantity }, (error, data) => __awaiter(void 0, void 0, void 0, function* () {
+        ejs_1.default.renderFile('templates/notificationDelivery.ejs', { Name: item.customerFirstname }, (error, data) => __awaiter(void 0, void 0, void 0, function* () {
             let mailOptions = {
                 from: process.env.EMAIL,
                 to: item.customerEmail,
-                subject: "SHIPPING NOTIFICATION",
+                subject: "DELIVERY NOTIFICATION",
                 html: data
             };
             try {
                 yield (0, emailHelper_1.sendMail)(mailOptions);
-                yield pool.request().query('UPDATE orders SET isEmailSent = 1 WHERE isEmailSent = 0');
-                console.log(`Notifying customer${item.customerFirstname} their order is under shipping status`);
+                yield pool.request().query('UPDATE orders SET isDelivered = 1 WHERE isDelivered = 0');
+                console.log(`Notifying customer${item.customerFirstname} their order has been  delivered`);
             }
             catch (error) {
                 console.log(error);
@@ -42,4 +42,4 @@ const notificationShipping = () => __awaiter(void 0, void 0, void 0, function* (
         }));
     }
 });
-exports.notificationShipping = notificationShipping;
+exports.notificationDelivery = notificationDelivery;
