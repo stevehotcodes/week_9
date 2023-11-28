@@ -9,7 +9,7 @@ dotenv.config()
 export const welcomeUser = async() =>{
     const pool = await mssql.connect(sqlConfig)
 
-    const users:IUserDetails[] = await (await pool.request().query('SELECT * FROM users WHERE isDeleted= 0')).recordset
+    const users:IUserDetails[] = await (await pool.request().query('SELECT * FROM users WHERE isWelcomed= 0')).recordset
 
     console.log(users);
     
@@ -26,7 +26,7 @@ export const welcomeUser = async() =>{
             try {
                 await sendMail(mailOptions)
 
-                await pool.request().query('UPDATE users SET isDeleted = 1 WHERE isDeleted = 0')
+                await pool.request().query('UPDATE users SET isWelcomed= 1 WHERE isWelcomed = 0')
 
                 console.log('Emails send to new users');
                 
