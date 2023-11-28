@@ -1,59 +1,229 @@
 <div class="flex">
   <app-admin-aside></app-admin-aside>
-  <div class="m-20">
-    <h1 class="flex justify-between mb-6">
-      Items in stock
-      <span
-        ><button
-          routerLink="/add"
-          class="bg-[#433131] text-white h-[36px] pl-2 pr-2 font-bold"
+  <div>
+    <!-- Items Stock -->
+    <div class="m-10" *ngIf="showStock">
+      <h1 class="flex justify-between mb-6">
+        Items in stock
+        <span
+          ><button
+            routerLink="/add"
+            class="bg-[#433131] text-white h-[36px] pl-2 pr-2 font-bold"
+          >
+            New Product
+          </button></span
         >
-          New Product
-        </button></span
+      </h1>
+      <table class="border-collapse shadow-lg border border-gray-300 w-[70vw]">
+        <thead>
+          <tr>
+            <th class="border border-gray-300" style="width: 5%">#</th>
+            <th class="border border-gray-300" style="width: 20%">Item</th>
+            <th class="border border-gray-300" style="width: 15%">Qnty</th>
+            <th class="border border-gray-300" style="width: 15%">Price @</th>
+            <th class="border border-gray-300" style="width: 25%">Events</th>
+          </tr>
+        </thead>
+        <tbody class="border border-gray-300">
+          <tr>
+            <td class="border border-gray-300 pl-4" style="width: 5%">01</td>
+            <td class="border border-gray-300 pl-4" style="width: 20%">
+              annan@gmail.com
+            </td>
+            <td
+              class="border border-gray-300 pl-4 text-center"
+              style="width: 15%"
+            >
+              25
+            </td>
+            <td
+              class="border border-gray-300 pl-4 text-center"
+              style="width: 15%"
+            >
+              25
+            </td>
+            <td
+              class="border border-gray-300 pl-4 text-center"
+              style="width: 25%"
+            >
+              <div class="flex justify-around">
+                <button (click)="viewProduct()">
+                  <img
+                    src="https://png.pngtree.com/png-clipart/20191027/ourmid/pngtree-view-icon-png-image_1869829.jpg"
+                    alt=""
+                    width="27px"
+                  />
+                </button>
+                <button (click)="editForm()">
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/512/32/32355.png"
+                    alt=""
+                    width="20px"
+                  />
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- updating product -->
+    <div class="overlay flex justify-center px-20 mt-20" *ngIf="showForm">
+      <button (click)="hideForm()" class="cursor-pointer">
+        <span class="material-symbols-outlined"> cancel </span>
+      </button>
+      <form
+        [formGroup]="updateForm"
+        class="h-[60vh] max-h-[80vh] grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
       >
-    </h1>
-    <table class="border-collapse shadow-lg border border-gray-300 w-[70vw]">
-      <thead>
-        <tr>
-          <th class="border border-gray-300" style="width: 5%">#</th>
-          <th class="border border-gray-300" style="width: 20%">Image</th>
-          <th class="border border-gray-300" style="width: 20%">Item</th>
-          <th class="border border-gray-300" style="width: 15%">Qnty</th>
-          <th class="border border-gray-300" style="width: 15%">Price @</th>
-          <th class="border border-gray-300" style="width: 25%">Events</th>
-        </tr>
-      </thead>
-      <tbody class="border border-gray-300">
-        <tr>
-          <td class="border border-gray-300 pl-4" style="width: 5%">01</td>
-          <td class="border border-gray-300 pl-4" style="width: 20%">
-            Perez Odiyo
-          </td>
-          <td class="border border-gray-300 pl-4" style="width: 20%">
-            annan@gmail.com
-          </td>
-          <td
-            class="border border-gray-300 pl-4 text-center"
-            style="width: 15%"
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="image"
+            >Image</label
           >
-            25
-          </td>
-          <td
-            class="border border-gray-300 pl-4 text-center"
-            style="width: 15%"
+          <input
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="image"
+            type="text"
+            placeholder="Image URL"
+          />
+          <span class="text-[12px] text-red-500">*Required</span>
+        </div>
+
+        <div class="mb-4">
+          <label
+            class="block text-gray-700 text-sm font-bold mb-2"
+            for="productName"
+            >Product Name</label
           >
-            25
-          </td>
-          <td
-            class="border border-gray-300 pl-4 text-center"
-            style="width: 25%"
+          <input
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="productName"
+            type="text"
+            placeholder="Product Name"
+          />
+          <span class="text-[12px] text-red-500">*Required</span>
+        </div>
+
+        <div class="mb-4">
+          <label
+            class="block text-gray-700 text-sm font-bold mb-2"
+            for="category"
+            >Category</label
           >
-            <button>v</button>
-            <button>d</button>
-            <button></button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+          <input
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="category"
+            type="text"
+            placeholder="Category"
+          />
+          <span class="text-[12px] text-red-500">*Required</span>
+        </div>
+
+        <div class="mb-4">
+          <label
+            class="block text-gray-700 text-sm font-bold mb-2"
+            for="description"
+            >Description</label
+          >
+          <textarea
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="description"
+            placeholder="Description"
+            rows="5"
+          ></textarea>
+          <span class="text-[12px] text-red-500">*Required</span>
+        </div>
+
+        <div class="mb-4">
+          <label
+            class="block text-gray-700 text-sm font-bold mb-2"
+            for="quantity"
+            >Quantity</label
+          >
+          <input
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="quantity"
+            min="1"
+            type="number"
+            placeholder="Quantity"
+          />
+          <span class="text-[12px] text-red-500">*Required</span>
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="price"
+            >Price</label
+          >
+          <input
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="price"
+            min="1"
+            type="number"
+            placeholder="Price"
+          />
+          <span class="text-[12px] text-red-500">*Required</span>
+        </div>
+
+        <div class="col-span-2 flex items-center justify-between">
+          <!-- Additional buttons or content can be added here -->
+        </div>
+
+        <!-- Submit Button -->
+        <button
+          class="col-span-2 bg-[#433131] hover:bg-orange-200 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          type="submit"
+        >
+          Update
+        </button>
+      </form>
+    </div>
+    <!-- viewing product details -->
+    <div id="product" class="flex justify-center" *ngIf="showProduct">
+      <div class="shadow-lg flex flex-col items-center p-4" style="width: 40vw">
+        <img
+          src="https://thebusybaker.ca/wp-content/uploads/2019/02/birthday-cake-cupcakes-with-chocolate-frosting-fb-ig-3.jpg"
+          alt=""
+          width="100%"
+        />
+        <h1 class="text-xl font-bold mt-2">cupcakes</h1>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae
+          porro sit quasi repellendus adipisci cum dolor, quo quae magni, vel
+          facere voluptas quia, iste possimus inventore a voluptates maxime
+          optio!
+        </p>
+        <br />
+        <div class="flex gap-10">
+          <p class="text-gray-700">
+            Ksh. <span class="font-bold">1234.00</span>
+          </p>
+          <p><span class="text-green-700">InStock </span>:40</p>
+        </div>
+
+        <div class="flex gap-4 mt-2">
+          <button id="edit" (click)="editForm()">
+            <img
+              src="https://static-00.iconduck.com/assets.00/edit-icon-2048x2048-6svwfwto.png"
+              alt=""
+              width="20px"
+            />
+          </button>
+          <button id="delete">
+            <img
+              src="https://static.thenounproject.com/png/199029-200.png"
+              alt=""
+              width="25px"
+            />
+          </button>
+          <button id="close" (click)="hideProduct()">
+            <img
+              src="https://icons.veryicon.com/png/o/internet--web/property-2/closed-eyes.png"
+              alt=""
+              width="25px"
+            />
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
