@@ -1,23 +1,27 @@
-<div>
-  <div class="navbar bg-[#433131]">
-    <div>
-      <h1>ShOpPiE</h1>
+<div class="sticky top-0 z-50 px-10 py-4 bg-[#95714b]">
+  <nav class="flex justify-between items-center mx-auto">
+    <div class="flex space-x-4">
+      <a
+        routerLink="/"
+        routerLinkActive="active-link"
+        class="hover:text-white font-normal"
+        >Home</a
+      >
     </div>
-    <div class="bg-[ #433131 ]">
-      <input
-        type="text"
-        placeholder=""
-        class="material-symbols-outlined bg-transparent rounded-3xl border border-gray-100 p-2"
-        value="Search"
-      />
+
+    <div class="flex space-x-4">
+      <a
+        routerLink="/login"
+        routerLinkActive="active-link"
+        class="hover:text-orange-500 font-bold rounded-md px-4 py-2"
+        >Login</a
+      >
+      <a
+        routerLink="/register"
+        routerLinkActive="active-link"
+        class="hover:text-white font-bold hover:bg-black border-solid border-2 border-black rounded-md px-4 py-2"
+        >SignUp</a
+      >
     </div>
-    <div>
-      <img
-        src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
-        alt=""
-        width="30px"
-        style="border-radius: 50%"
-      />
-    </div>
-  </div>
+  </nav>
 </div>
