@@ -18,6 +18,7 @@ import { ProductlistComponent } from './productlist/productlist.component';
 import { OrdersComponent } from './orders/orders.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserdashboardComponent } from './userdashboard/userdashboard.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -36,13 +37,10 @@ import { UserdashboardComponent } from './userdashboard/userdashboard.component'
     ProductlistComponent,
     OrdersComponent,
     ProfileComponent,
-    UserdashboardComponent
+    UserdashboardComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
