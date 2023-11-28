@@ -23,7 +23,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateUser = exports.getAUserById = exports.getAllUsers = exports.loginUser = exports.registerUser = void 0;
+exports.updateUser = exports.getSignedInUser = exports.getAUserById = exports.getAllUsers = exports.loginUser = exports.registerUser = void 0;
 const validators_1 = require("../validators/validators");
 const dbhelpers_1 = __importDefault(require("../dbhelpers/dbhelpers"));
 const lodash_1 = require("lodash");
@@ -70,15 +70,17 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { email, password } = req.body;
         const pool = yield mssql_1.default.connect(dbConfig_1.dbConfig);
-        let user = yield pool
+        let user = (yield pool
             .request()
             .input("email", email)
             .input("password", password)
-            .execute("loginUser");
+            .execute("loginUser"));
+        console.log(user);
         if (!user.recordset.length) {
             return res.status(401).json({ error: "Invalid credentials" });
         }
         const _a = user.recordset[0], { password: storedPassword } = _a, rest = __rest(_a, ["password"]);
+        console.log(rest);
         const correctPwd = yield bcrypt_1.default.compare(password, storedPassword);
         if (!correctPwd) {
             return res.status(401).json({ error: "Invalid credentials" });
@@ -87,11 +89,11 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             expiresIn: "34000s",
         });
         console.log(token);
-        return res.status(200).json({ message: "LogIn successful", token, email });
+        return res.status(200).json({ message: "LogIn successful", token, email, role: rest.role });
     }
     catch (error) {
         console.error(error);
-        return res.status(500).json({ error: "server error" });
+        return res.status(500).json({ error: error.message });
     }
 });
 exports.loginUser = loginUser;
@@ -122,9 +124,25 @@ const getAUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.getAUserById = getAUserById;
-const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getSignedInUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _b;
     try {
-        let { id } = req.params;
+        const id = (_b = req.info) === null || _b === void 0 ? void 0 : _b.id;
+        let user = (yield dbhelper.execute('getAUserById', { id })).recordset[0];
+        if (!user) {
+            return res.status(404).json({ message: "No customer found" });
+        }
+        return res.status(200).json(user);
+    }
+    catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+});
+exports.getSignedInUser = getSignedInUser;
+const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _c;
+    try {
+        let id = (_c = req.info) === null || _c === void 0 ? void 0 : _c.id;
         let { firstname, lastname, email, password } = req.body;
         if (!firstname || !lastname || !email || !password) {
             return res.status(400).json({ message: 'required values are missing kindly check again' });
