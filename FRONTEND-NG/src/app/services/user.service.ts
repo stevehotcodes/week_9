@@ -15,5 +15,5 @@ export class UserService {
 
   getSignedInUser():Observable<ISignedUserDetails>{
     return this.http.get<ISignedUserDetails>('http://localhost:3000/user/logged')
-}
+  }
 }

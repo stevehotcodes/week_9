@@ -34,6 +34,9 @@ export class LoginService {
               if(res.role=='admin'){
                 this.route.navigate(['/admin'])
               }
+              else{
+                this.route.navigate(['/user'])
+              }
               
         }
 
