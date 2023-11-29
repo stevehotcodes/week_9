@@ -20,6 +20,8 @@ import { OrdersComponent } from './orders/orders.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserdashboardComponent } from './userdashboard/userdashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS,HttpClientModule} from '@angular/common/http'
+import { InterceptorService } from './services/interceptor.service';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ProductlistComponent,
     OrdersComponent,
     ProfileComponent,
-    UserdashboardComponent,
+    UserdashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -48,6 +50,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
   ],
   providers: [],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule,HttpClientModule],
+  providers: [{provide:HTTP_INTERCEPTORS,useClass:InterceptorService,multi:true}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
