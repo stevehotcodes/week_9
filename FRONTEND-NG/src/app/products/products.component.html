@@ -1,13 +1,29 @@
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-  <div>
-    <img
-      src="https://thebusybaker.ca/wp-content/uploads/2019/02/birthday-cake-cupcakes-with-chocolate-frosting-fb-ig-3.jpg"
-      alt=""
-      width="150px"
-    />
-    <h1>cupcakes</h1>
-    <p>Ksh. <span>1234.00</span></p>
-    <button>Add to cart</button>
+<div class="min-h-screen flex flex-col">
+  <div class="flex flex-col flex-grow">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 m-10">
+      <div
+        class="text-center flex flex-col items-center shadow-lg p-4"
+        *ngFor="let product of allProducts"
+      >
+        <img
+          src="{{ product.productImageURL }}"
+          alt=""
+          class="mb-2"
+          width="70%"
+        />
+        <h1>{{ product.productName }}</h1>
+        <p>
+          Ksh. <span>{{ product.price }}</span>
+        </p>
+        <button
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Add to cart
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="mt-auto">
+    <app-footer></app-footer>
   </div>
 </div>
-<app-footer></app-footer>
