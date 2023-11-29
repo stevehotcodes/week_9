@@ -12,7 +12,7 @@ import { NewproductComponent } from './newproduct/newproduct.component';
 import { AdminAsideComponent } from './admin-aside/admin-aside.component';
 import { AdminlandingComponent } from './adminlanding/adminlanding.component';
 import { LandingpageComponent } from './landingpage/landingpage.component';
-import { HttpClientModule } from '@angular/common/http';
+
 import { UserNavigationComponent } from './user-navigation/user-navigation.component';
 import { ProductsComponent } from './products/products.component';
 import { CustomersComponent } from './customers/customers.component';

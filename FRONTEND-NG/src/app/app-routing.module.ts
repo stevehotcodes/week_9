@@ -29,9 +29,11 @@ const routes: Routes = [
   {path:'cart',component:CartComponent},
 
   { path: 'orders', component: OrdersComponent,canActivate:[UserGuard] },
-  { path: 'uorders', component: UserOrdersComponent,canActivate:[UserGuard] },
-  { path: 'profile', component: ProfileComponent ,canActivate:[UserGuard]},
-   { path: 'productlists', component: ProductlistComponent },
+
+  { path: 'profile', component: ProfileComponent },
+  { path: 'user', component: UserdashboardComponent ,canActivate:[UserGuard]},
+  { path: 'productlists', component: ProductlistComponent },
+
 ];
 
 @NgModule({
