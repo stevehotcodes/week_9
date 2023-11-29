@@ -7,13 +7,15 @@ import { ISignedUserDetails } from './auth.service';
   providedIn: 'root'
 })
 export class UserService {
-  getLoggedUser() {
-	  throw new Error('Method not implemented.');
-  }
+  // getLoggedUser() {
+	//   throw new Error('Method not implemented.');
+  // }
 
   constructor(private http:HttpClient) { }
+  
 
   getSignedInUser():Observable<ISignedUserDetails>{
     return this.http.get<ISignedUserDetails>('http://localhost:3000/user/logged')
   }
+  
 }

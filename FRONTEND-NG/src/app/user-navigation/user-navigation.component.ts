@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 
@@ -7,10 +7,15 @@ import { UserService } from '../services/user.service';
   templateUrl: './user-navigation.component.html',
   styleUrls: ['./user-navigation.component.css']
 })
-export class UserNavigationComponent {
-
-
+export class UserNavigationComponent implements OnInit {
+  userDetails:any
+  
   constructor(private authSvc:AuthService,private userSvc:UserService){}
+  ngOnInit(){
+    // this.getSignedUser()
+    this.userDetails= localStorage.getItem('shopieLoggedUseremail')
+    console.log(this.userDetails)
+  }
 
   logOut(){
     this.authSvc.signOut()
@@ -18,8 +23,10 @@ export class UserNavigationComponent {
 
   getSignedUser(){
     this.userSvc.getSignedInUser().subscribe(
-      res=>{
+      (res:any)=>{
         console.log(res)
+        this.userDetails=res
+        console.log("new user details",this.userDetails)
       }
    
     )
