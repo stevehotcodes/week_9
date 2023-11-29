@@ -10,9 +10,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ProductsService {
-  // getProductById(id: string) {
-  //   throw new Error('Method not implemented.');
-  // }
+
   private apiUrl = 'http://localhost:3000/products/new';
 
   constructor(private http: HttpClient) {}

@@ -5,6 +5,7 @@ export interface productDetails {
   productImageURL: string;
   productStock: number;
   category: string;
+  id: string;
 }
 
 export interface getAllProductDetails {
