@@ -16,7 +16,7 @@ export class InterceptorService implements HttpInterceptor {
 
   intercept(req:HttpRequest<any>, next: HttpHandler):Observable<HttpEvent<any>>{
 
-    const token= localStorage.getItem('shopieLoggedUseremail')
+    const token= localStorage.getItem('shopieLoggedUserToken')
     this.token=token?token:"";
     let  modifiedRequest=req.clone({
       headers: new HttpHeaders().append('token', this.token)
