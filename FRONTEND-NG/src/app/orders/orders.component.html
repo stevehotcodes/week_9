@@ -12,41 +12,42 @@
         </button></span
       > -->
     </h1>
-    <table class="border-collapse shadow-lg border border-gray-300 w-[70vw]">
-      <thead>
-        <tr>
+    <table class="border-collapse shadow-lg border border-gray-300 w-[70vw]" >
+      <thead >
+        <tr >
           <th class="border border-gray-300" style="width: 5%">#</th>
-          <th class="border border-gray-300" style="width: 20%">User</th>
-          <th class="border border-gray-300" style="width: 20%">Date</th>
+          <th class="border border-gray-300" style="width: 20%">orderDate</th>
+          <th class="border border-gray-300" style="width: 20%">orderID</th>
           <th class="border border-gray-300" style="width: 15%">
             Order Status
           </th>
           <th class="border border-gray-300" style="width: 25%">Events</th>
         </tr>
       </thead>
-      <tbody class="border border-gray-300">
+      <tbody class="border border-gray-300" *ngFor="let order of orders">
         <tr>
           <td class="border border-gray-300 pl-4" style="width: 5%">01</td>
           <td class="border border-gray-300 pl-4" style="width: 20%">
-            Perez Odiyo
+            {{order.orderDate}}
           </td>
           <td class="border border-gray-300 pl-4" style="width: 20%">
-            annan@gmail.com
+            {{order.id}}
           </td>
           <td
             class="border border-gray-300 pl-4 text-center"
             style="width: 15%"
           >
-            25
+            {{order.orderStatus}}
           </td>
 
           <td
             class="border border-gray-300 pl-4 text-center"
             style="width: 25%"
           >
-            <button>v</button>
-            <button>d</button>
-            <button></button>
+            <button class="button transit" [disabled]="isOnTransit" (click)="onTransit(order.id)" *ngIf="order.orderStatus==='processing'">On transit</button>
+            <button class="Delivered" *ngIf="order.orderStatus==='shipping'" >Delivered</button>
+           <button class="cancel"*ngIf="order.orderStatus!=='shipped' " [disabled]="isCanceled">cancel</button>
+           
           </td>
         </tr>
       </tbody>
