@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 
@@ -24,7 +25,7 @@ export interface ISignedUserDetails{
 })
 export class AuthService {
 
-  constructor(private  http:HttpClient) { }
+  constructor(private  http:HttpClient, private route:Router) { }
   
   signin(loggedUser:IloggedUser) {
     localStorage.setItem('shopieLoggedUseremail', loggedUser.email)
@@ -36,6 +37,7 @@ export class AuthService {
   signOut(){
     localStorage.removeItem('shopieLoggedUseremail')
     localStorage.removeItem('shopieLoggedUserToken')
+    //  this.route.navigate(['/'])
     window.location.reload()
   }
   getLoggedUser() {
@@ -63,7 +65,7 @@ export class AuthService {
   }
   getSignedInUser():Observable<ISignedUserDetails >{
     return this.http.get<ISignedUserDetails>('http://localhost:3000/user/logged')
-}
+  }
 
 
 }

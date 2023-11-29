@@ -20,7 +20,7 @@ export interface IorderItemInfo {
     productImageURL:string
 }
 export interface IorderDetailsWithUserInfo{
-    id:string
+    id:string[]
     status:string
     orderDate:string
     productID:string

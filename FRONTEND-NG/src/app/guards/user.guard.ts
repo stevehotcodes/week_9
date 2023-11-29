@@ -21,14 +21,15 @@ export class UserGuard implements CanActivate {
 
 	constructor(private router: Router, private userSvc: UserService) { }
 
-	canActivate():boolean|Promise<boolean>| Observable<boolean> {
+	canActivate():boolean| Observable<boolean> {
 		return this.userSvc.getSignedInUser().pipe(
 			switchMap(result => {
 				const canActivate = result.role? true : false
 				if (canActivate) {
+					console.log("you are active user kindly sign up")
 					return of(true)
 				} else {
-					this.router.navigate([''])
+					this.router.navigate(['/register'])
 					return of(false)
 				}
 			}),

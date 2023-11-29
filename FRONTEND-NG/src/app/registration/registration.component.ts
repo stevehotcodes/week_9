@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { SignupService } from '../services/signup.service';
+import { FlashmessagesService } from '../services/flashmessages.service';
 
 @Component({
   selector: 'app-registration',
@@ -11,7 +12,7 @@ import { SignupService } from '../services/signup.service';
 export class RegistrationComponent implements OnInit {
     signupForm!:FormGroup
 
-    constructor(private formBuilder:FormBuilder,private UserSvc:SignupService){}
+    constructor(private formBuilder:FormBuilder,private UserSvc:SignupService, private flashMsgSvc:FlashmessagesService){}
 
     ngOnInit():void{
       this.signupForm=this.formBuilder.group({
@@ -29,11 +30,19 @@ export class RegistrationComponent implements OnInit {
         console.log(this.signupForm.value)
         delete newUserData.confirmPassword
         this.UserSvc.registerNewUser(newUserData)
+       
+      
       }
       else{
         console.log("cant register since the form is invalid")
-      }
+        
+          this.flashMsgSvc.pushMessage({
+            type: 'error',
+            message:"cant register since the form has  invalid inputs"
+          
+      })
 
     }
 
+}
 }
