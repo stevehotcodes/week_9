@@ -2,7 +2,7 @@ import { Request,Response} from "express";
 import Connection from "../dbhelpers/dbhelpers";
 import {v4} from 'uuid'
 import { ExtendedUser } from "../middlewares/verifyTokens";
-import { Iorder, IorderItemInfo, IorderWithInfo, Tstatus } from "../interfaces/orderInterface";
+import { Iorder, IorderDetailsWithUserInfo, IorderItemInfo, IorderWithInfo, Tstatus } from "../interfaces/orderInterface";
 import { IProduct } from "../interfaces/productInterface";
 import { IcartItem } from "../interfaces/cartInterface";
 
@@ -77,7 +77,7 @@ export const getOrdersByUser=async(req:ExtendedUser,res:Response)=>{
     try {
 
         const userID=req.info?.id!
-        const orders=await(await databaseConnection.execute('getOrdersByUser',{userID})).recordset
+        const orders:IorderDetailsWithUserInfo[]=await(await databaseConnection.execute('getOrdersByUser',{userID})).recordset
         if(orders.length){
             return res.status(200).json(orders)
         }

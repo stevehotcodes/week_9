@@ -50,12 +50,14 @@ export const deleteCartItem=async(req:ExtendedUser,res:Response)=>{
         const {itemID}=req.params
         const cart=(await databaseConnection.execute('getCart',{userID})).recordset
         let cartItem:IcartItem=cart.filter((item:IcartItem)=>{
-            return item.productID===itemID}
+
+            return item.id===itemID}
             )[0]
-        
+        console.log(cartItem)
         
         if(cartItem){
             await databaseConnection.execute('deleteCartItem',{productID:itemID})
+            console.log("hey I am deleted")
             return res.status(200).json({message:"cart item quantity deleted"})
         }
         else{
