@@ -76,8 +76,10 @@
       </button>
       <form
         [formGroup]="updateForm"
-        class="h-[60vh] max-h-[80vh] grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+      (ngSubmit)="onSubmit()"
+        class="h-[60vh] min-h-[80vh] grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
       >
+     
         <div class="mb-4">
           <label class="block text-gray-700 text-sm font-bold mb-2" for="image"
             >Image</label
@@ -85,7 +87,7 @@
           <input
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="image"
-            formControlName="image"
+            formControlName="productImageUrl"
             type="text"
             placeholder="Image URL"
           />
@@ -133,7 +135,7 @@
           <textarea
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="description"
-            formControlName="description"
+            formControlName="productDescription"
             placeholder="Description"
             rows="5"
           ></textarea>
@@ -150,7 +152,7 @@
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="quantity"
             min="1"
-            formControlName="quantity"
+            formControlName="productStock"
             type="number"
             placeholder="Quantity"
           />

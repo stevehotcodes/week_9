@@ -10,7 +10,6 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ProductsService {
-
   private apiUrl = 'http://localhost:3000/products/new';
 
   constructor(private http: HttpClient) {}
@@ -27,6 +26,12 @@ export class ProductsService {
   getProductByID(id: string): Observable<any> {
     return this.http.get<getAllProductDetails[]>(
       `http://localhost:3000/products/one/${id}`
+    );
+  }
+  updateProduct(id: string, updatedProductData: any): Observable<any> {
+    return this.http.put(
+      `http://localhost:3000/products/${id}`,
+     { updatedProductData}
     );
   }
 }

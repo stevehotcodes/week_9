@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: 'customers', component: CustomersComponent },
 
   { path: 'orders', component: OrdersComponent,canActivate:[UserGuard] },
-  { path: 'profile', component: ProfileComponent ,canActivate:[UserGuard]},
+  { path: 'profile', component: ProfileComponent },
   { path: 'user', component: UserdashboardComponent ,canActivate:[UserGuard]},
   { path: 'productlists', component: ProductlistComponent },
 ];

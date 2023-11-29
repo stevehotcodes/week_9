@@ -33,6 +33,9 @@ export class ProductlistComponent implements OnInit {
     this.initializeForm();
     this.product_id;
   }
+  onSubmit() {
+    this.updateProductDetails();
+  }
 
   initializeForm() {
     this.updateForm = this.formBuilder.group({
@@ -89,8 +92,6 @@ export class ProductlistComponent implements OnInit {
     this.showProduct = false;
   }
   editForm(product_id: string) {
-
-
     localStorage.setItem('product_id', product_id);
     this.patchvalues(product_id);
 
@@ -100,7 +101,30 @@ export class ProductlistComponent implements OnInit {
     // }
   }
 
-  onEditSubmit = async () => {};
+  updateProductDetails() {
+    let id = localStorage.getItem('product_id') as string;
+
+    if(!id){console.log("no id");}
+
+
+    const updatedData = {
+      // productName,productDescription,price,productImageUrl,category,productStock
+      productImageUrl: this.updateForm.get('image')?.value,
+      productName: this.updateForm.get('productName')?.value,
+      category: this.updateForm.get('category')?.value,
+      productDescription: this.updateForm.get('description')?.value,
+      productStock: this.updateForm.get('quantity')?.value,
+      price: this.updateForm.get('price')?.value,
+    };
+
+    console.log('sdaasdad ', updatedData);
+
+    this.productService
+      .updateProduct(id, updatedData)
+      .subscribe((response) => {
+        console.log('product updated successfully', response);
+      });
+  }
 
   getAllProductDetails() {
     this.productService.getAllProducts().subscribe((data) => {
