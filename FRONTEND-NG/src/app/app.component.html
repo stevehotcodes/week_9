@@ -11,5 +11,7 @@
 <!-- <app-customers></app-customers> -->
 <!-- <app-productlist></app-productlist> -->
 <!-- <app-userdashboard></app-userdashboard> -->
-
+<div id="flash-messages" *ngIf="messages">
+    <app-flashmessages class="{{message.type}}" *ngFor="let message of messages" [message]="message"></app-flashmessages>
+</div>
 <router-outlet></router-outlet>

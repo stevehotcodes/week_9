@@ -2,3 +2,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#flash-messages {
+    position: fixed;
+    z-index: 1;
+    top: 5svh;
+    right: 5svw;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    width: min(400px, 60svw);
+}
+app-flashmessages {
+    color: white;
+    padding: 0.2rem 0.5rem;
+    font-size: large;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    opacity: 0.9;
+    border-radius: 5px;
+}
+
+.error {
+    background-color: red;
+}
+
+.success {
+    background-color: green;
+}
+
+.info {
+    background-color: gray;
+}

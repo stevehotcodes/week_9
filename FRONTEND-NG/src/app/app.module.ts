@@ -24,6 +24,7 @@ import { HTTP_INTERCEPTORS,HttpClientModule} from '@angular/common/http'
 import { InterceptorService } from './services/interceptor.service';
 import { UserOrdersComponent } from './user-orders/user-orders.component';
 import { CartComponent } from './cart/cart.component';
+import { FlashmessagesComponent } from './flashmessages/flashmessages.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { CartComponent } from './cart/cart.component';
     ProfileComponent,
     UserdashboardComponent,
     UserOrdersComponent,
-    CartComponent
+    CartComponent,
+    FlashmessagesComponent
     
   ],
   imports: [BrowserModule, CommonModule, AppRoutingModule, FormsModule, ReactiveFormsModule,HttpClientModule],
