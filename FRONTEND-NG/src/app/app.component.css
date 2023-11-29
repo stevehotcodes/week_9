@@ -1,0 +1,10 @@
+#flash-messages {
+    position: fixed;
+    z-index: 999;
+    top: 5svh;
+    right: 5svw;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    width: min(400px, 60svw);
+}

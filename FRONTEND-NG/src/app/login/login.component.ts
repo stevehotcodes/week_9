@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SignupService } from '../services/signup.service';
 import { LoginService } from '../services/login.service';
 import { using } from 'rxjs';
+import { FlashmessagesService } from '../services/flashmessages.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ import { using } from 'rxjs';
 export class LoginComponent {
   loginForm!:FormGroup
 
-  constructor(private formBuilder:FormBuilder,private UserSvc:LoginService){}
+  constructor(private formBuilder:FormBuilder,private UserSvc:LoginService,private flashMsgSvc:FlashmessagesService){}
 
   ngOnInit():void{
     this.loginForm=this.formBuilder.group({
@@ -29,9 +30,14 @@ export class LoginComponent {
       console.log(this.loginForm.value)
       delete UserData.confirmPassword
       this.UserSvc.logIn(UserData)
+      
     }
     else{
-      console.log("cant log in since the form is invalid")
+  
+      this.flashMsgSvc.pushMessage({
+        type:'error',
+        message:"cant log in since the form is invalid or has no input"
+      })
     }
 
 }

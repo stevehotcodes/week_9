@@ -13,6 +13,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { UserdashboardComponent } from './userdashboard/userdashboard.component';
 import { UserGuard } from './guards/user.guard';
 import { DeactivateGuard } from './guards/deActivated.guard';
+import { UserOrdersComponent } from './user-orders/user-orders.component';
+import { CartComponent } from './cart/cart.component';
 
 const routes: Routes = [
   { path: '', component: LandingpageComponent },
@@ -24,8 +26,10 @@ const routes: Routes = [
   { path: 'products', component: ProductsComponent },
   { path: 'register', component: RegistrationComponent },
   { path: 'customers', component: CustomersComponent },
+  {path:'cart',component:CartComponent},
 
   { path: 'orders', component: OrdersComponent,canActivate:[UserGuard] },
+  { path: 'uorders', component: UserOrdersComponent,canActivate:[UserGuard] },
   { path: 'profile', component: ProfileComponent ,canActivate:[UserGuard]},
    { path: 'productlists', component: ProductlistComponent },
 ];

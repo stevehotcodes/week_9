@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FlashmessagesService, IflashMessage } from './services/flashmessages.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'FRONTEND-NG';
+  messages:IflashMessage[]
+
+  constructor(public flashMessagesSvc:FlashmessagesService) {
+    this.messages = flashMessagesSvc.getMessages()
+  }
 }
