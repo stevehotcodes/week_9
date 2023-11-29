@@ -11,6 +11,7 @@ import { NewproductComponent } from './newproduct/newproduct.component';
 import { AdminAsideComponent } from './admin-aside/admin-aside.component';
 import { AdminlandingComponent } from './adminlanding/adminlanding.component';
 import { LandingpageComponent } from './landingpage/landingpage.component';
+import { HttpClientModule } from '@angular/common/http';
 import { UserNavigationComponent } from './user-navigation/user-navigation.component';
 import { ProductsComponent } from './products/products.component';
 import { CustomersComponent } from './customers/customers.component';
@@ -41,6 +42,14 @@ import { InterceptorService } from './services/interceptor.service';
     ProfileComponent,
     UserdashboardComponent
   ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+  ],
+  providers: [],
   imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule,HttpClientModule],
   providers: [{provide:HTTP_INTERCEPTORS,useClass:InterceptorService,multi:true}],
   bootstrap: [AppComponent],

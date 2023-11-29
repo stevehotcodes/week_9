@@ -3,6 +3,8 @@
 
   <div class="overlay flex justify-center px-20 mt-20">
     <form
+      [formGroup]="createProductForm"
+      (ngSubmit)="createProduct()"
       class="h-[60vh] max-h-[80vh] grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
     >
       <div class="mb-4">
@@ -11,7 +13,7 @@
         >
         <input
           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="image"
+          formControlName="productImageURL"
           type="text"
           placeholder="Image URL"
         />
@@ -26,7 +28,7 @@
         >
         <input
           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="productName"
+          formControlName="productName"
           type="text"
           placeholder="Product Name"
         />
@@ -39,7 +41,7 @@
         >
         <input
           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="category"
+          formControlName="category"
           type="text"
           placeholder="Category"
         />
@@ -54,7 +56,7 @@
         >
         <textarea
           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="description"
+          formControlName="productDescription"
           placeholder="Description"
           rows="5"
         ></textarea>
@@ -67,7 +69,7 @@
         >
         <input
           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="quantity"
+          formControlName="productStock"
           min="1"
           type="number"
           placeholder="Quantity"
@@ -81,7 +83,7 @@
         >
         <input
           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="price"
+          formControlName="price"
           min="1"
           type="number"
           placeholder="Price"
