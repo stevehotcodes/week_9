@@ -25,29 +25,31 @@
           </tr>
         </thead>
         <tbody class="border border-gray-300">
-          <tr>
-            <td class="border border-gray-300 pl-4" style="width: 5%">01</td>
+          <tr *ngFor="let product of allProducts; let i = index">
+            <td class="border border-gray-300 pl-4" style="width: 5%">
+              {{ i + 1 }}
+            </td>
             <td class="border border-gray-300 pl-4" style="width: 20%">
-              annan@gmail.com
+              {{ product.productName }}
             </td>
             <td
               class="border border-gray-300 pl-4 text-center"
               style="width: 15%"
             >
-              25
+              {{ product.productStock }}
             </td>
             <td
               class="border border-gray-300 pl-4 text-center"
               style="width: 15%"
             >
-              25
+              {{ product.price }}
             </td>
             <td
               class="border border-gray-300 pl-4 text-center"
               style="width: 25%"
             >
               <div class="flex justify-around">
-                <button (click)="viewProduct()">
+                <button>
                   <img
                     src="https://png.pngtree.com/png-clipart/20191027/ourmid/pngtree-view-icon-png-image_1869829.jpg"
                     alt=""
@@ -179,13 +181,13 @@
     </div>
     <!-- viewing product details -->
     <div id="product" class="flex justify-center" *ngIf="showProduct">
-      <div class="shadow-lg flex flex-col items-center p-4" style="width: 40vw">
-        <img
-          src="https://thebusybaker.ca/wp-content/uploads/2019/02/birthday-cake-cupcakes-with-chocolate-frosting-fb-ig-3.jpg"
-          alt=""
-          width="100%"
-        />
-        <h1 class="text-xl font-bold mt-2">cupcakes</h1>
+      <div
+        class="shadow-lg flex flex-col items-center p-4"
+        style="width: 40vw"
+        *ngFor="let product of allProducts"
+      >
+        <img src="{{ product.productImageURL }}" alt="" width="%" />
+        <h1 class="text-xl font-bold mt-2">{{ product.productName }}</h1>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae
           porro sit quasi repellendus adipisci cum dolor, quo quae magni, vel
@@ -195,7 +197,7 @@
         <br />
         <div class="flex gap-10">
           <p class="text-gray-700">
-            Ksh. <span class="font-bold">1234.00</span>
+            Ksh. <span class="font-bold">{{ product.price }}</span>
           </p>
           <p><span class="text-green-700">InStock </span>:40</p>
         </div>
