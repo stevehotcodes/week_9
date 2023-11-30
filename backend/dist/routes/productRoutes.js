@@ -11,3 +11,4 @@ productRouter.get("/one/:id", productControllers_1.getAProduct);
 productRouter.put("/:id", verifyTokens_1.adminPrivilege, productControllers_1.updateProduct);
 productRouter.delete("/:id", verifyTokens_1.adminPrivilege, productControllers_1.deleteProduct);
 exports.default = productRouter;
+//# sourceMappingURL=productRoutes.js.map
