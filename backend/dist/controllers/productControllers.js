@@ -63,15 +63,13 @@ exports.getAProduct = getAProduct;
 const updateProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let { id } = req.params;
-        let { productName, productDescription, price, productImageUrl, category, productStock } = req.body;
-        if (!productName || !productDescription || !price || !productImageUrl || !category || !productStock) {
-            return res.status(400).json({ message: 'missing all or either productName, productDescription, price,productImage,category,productstock' });
-        }
+        let { productName, productDescription, price, productImageURL, category, productStock } = req.body;
         let product = yield (yield dbhelpers_1.default.execute('getProductById', { id })).recordset[0];
+        console.log(req.body);
         if (!product) {
             return res.status(404).json({ message: 'The product does not exist' });
         }
-        yield dbhelpers_1.default.execute('updateProduct', { id, productName, productDescription, price, productImageUrl, category, productStock });
+        yield dbhelpers_1.default.execute('updateProduct', { id, productName, productDescription, price, productImageURL, category, productStock });
         return res.status(200).json({ message: "the product's details was updated successfully " });
     }
     catch (error) {

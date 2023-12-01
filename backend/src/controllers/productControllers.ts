@@ -70,17 +70,18 @@ export const getAProduct =async (req:Request,res:Response)=>{
 export const updateProduct =async (req:Request,res:Response)=>{
     try{
         let {id}=req.params
-        let {productName,productDescription,price,productImageUrl,category,productStock}=req.body
-        if(!productName||!productDescription ||!price||!productImageUrl ||!category ||!productStock){
-            return res.status(400).json({message: 'missing all or either productName, productDescription, price,productImage,category,productstock'})
-        }
+        let {productName,productDescription,price,productImageURL,category,productStock}=req.body
+        // if(!productName||!productDescription ||!price||!productImageUrl ||!category ||!productStock){
+        //     return res.status(400).json({message: 'missing all or either productName, productDescription, price,productImage,category,productstock'})
+        // }
         let product:IProduct= await (await dbhelper.execute('getProductById', {id})).recordset[0]
+        console.log(req.body)
         if(!product){
             return res.status(404).json({message: 'The product does not exist'});
 
          }
 
-        await dbhelper.execute('updateProduct',{id,productName,productDescription,price,productImageUrl,category,productStock})
+        await dbhelper.execute('updateProduct',{id,productName,productDescription,price,productImageURL,category,productStock})
         return res.status(200).json({message:"the product's details was updated successfully "})
 
     }

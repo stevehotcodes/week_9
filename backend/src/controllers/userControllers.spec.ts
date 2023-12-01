@@ -34,7 +34,7 @@ jest.mock("../dbhelpers/dbhelpers")
   
       jest.spyOn(bcrypt, 'hash').mockResolvedValueOnce('hashpassword@123' as never);
       ((dbhelper.execute as jest.Mock)).mockResolvedValueOnce({
-        rowsAffected: 1,
+        rowsAffected: [1],
       
         
       });
