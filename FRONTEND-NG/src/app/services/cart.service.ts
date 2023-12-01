@@ -25,5 +25,3 @@ export class CartService {
     return this.http.post(`http://localhost:3000/order/new`,{})
   }
 }
-
-// orderRouter.post('/new',accountRequired,createAnOrder)

@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 //   productDetails,
 // } from '../interfaces/productInterface';
 import { Observable } from 'rxjs';
-import { getAllProductDetails } from '../interfaces/productInterface';
+import { getAllProductDetails, productDetails } from '../interfaces/productInterface';
 
 @Injectable({
   providedIn: 'root',
@@ -19,8 +19,8 @@ export class ProductsService {
     return this.http.post<any>(this.apiUrl, product);
   }
 
-  getAllProducts(): Observable<any> {
-    return this.http.get<any>(
+  getAllProducts(): Observable<any[]> {
+    return this.http.get<any[]>(
       'http://localhost:3000/products/all'
     );
   }
@@ -30,7 +30,7 @@ export class ProductsService {
     );
   }
   updateProduct(id: string, updatedProductData: any): Observable<any> {
-    return this.http.put(
+    return this.http.patch(
       `http://localhost:3000/products/${id}`,
      { updatedProductData}
     );
