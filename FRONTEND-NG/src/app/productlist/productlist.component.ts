@@ -6,6 +6,7 @@ import {
 } from '../interfaces/productInterface';
 import { ProductsService } from '../services/products.service';
 import { Router } from '@angular/router';
+import { FlashmessagesService } from '../services/flashmessages.service';
 
 @Component({
   selector: 'app-productlist',
@@ -25,7 +26,8 @@ export class ProductlistComponent implements OnInit {
   constructor(
     private productService: ProductsService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private flashMessages:FlashmessagesService
   ) {}
 
   ngOnInit() {
@@ -109,7 +111,7 @@ export class ProductlistComponent implements OnInit {
 
     const updatedData = {
       // productName,productDescription,price,productImageUrl,category,productStock
-      productImageUrl: this.updateForm.get('image')?.value,
+      productImageURL: this.updateForm.get('image')?.value,
       productName: this.updateForm.get('productName')?.value,
       category: this.updateForm.get('category')?.value,
       productDescription: this.updateForm.get('description')?.value,
@@ -122,7 +124,18 @@ export class ProductlistComponent implements OnInit {
     this.productService
       .updateProduct(id, updatedData)
       .subscribe((response) => {
-        console.log('product updated successfully', response);
+        console.log('product updated successfully', response)
+        this.flashMessages.pushMessage({
+          type:'success',
+          message:'product updated successfully'
+         });
+         this.router.navigate(['/productlist'])
+      },
+      message=>{
+        this.flashMessages.pushMessage({
+          type:'error',
+          message:'input cannot be empty'
+        })
       });
   }
 
